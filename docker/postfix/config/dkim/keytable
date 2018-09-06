@@ -1,0 +1,1 @@
+mail._domainkey.gocapital123.com gocapital123.com:mail:/etc/postfix/dkim/mail.gocapital123.com.private

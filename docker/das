@@ -1,0 +1,138 @@
+block
+  target: %%REJECT%%
+  icmp-block-inversion: no
+  interfaces: 
+  sources: 
+  services: 
+  ports: 
+  protocols: 
+  masquerade: no
+  forward-ports: 
+  source-ports: 
+  icmp-blocks: 
+  rich rules: 
+	
+
+dmz
+  target: default
+  icmp-block-inversion: no
+  interfaces: 
+  sources: 
+  services: ssh
+  ports: 
+  protocols: 
+  masquerade: no
+  forward-ports: 
+  source-ports: 
+  icmp-blocks: 
+  rich rules: 
+	
+
+drop
+  target: DROP
+  icmp-block-inversion: no
+  interfaces: 
+  sources: 
+  services: 
+  ports: 
+  protocols: 
+  masquerade: no
+  forward-ports: 
+  source-ports: 
+  icmp-blocks: 
+  rich rules: 
+	
+
+external
+  target: default
+  icmp-block-inversion: no
+  interfaces: 
+  sources: 
+  services: ssh
+  ports: 
+  protocols: 
+  masquerade: yes
+  forward-ports: 
+  source-ports: 
+  icmp-blocks: 
+  rich rules: 
+	
+
+home
+  target: default
+  icmp-block-inversion: no
+  interfaces: 
+  sources: 
+  services: ssh mdns samba-client dhcpv6-client
+  ports: 
+  protocols: 
+  masquerade: no
+  forward-ports: 
+  source-ports: 
+  icmp-blocks: 
+  rich rules: 
+	
+
+internal
+  target: default
+  icmp-block-inversion: no
+  interfaces: 
+  sources: 
+  services: ssh mdns samba-client dhcpv6-client
+  ports: 
+  protocols: 
+  masquerade: no
+  forward-ports: 
+  source-ports: 
+  icmp-blocks: 
+  rich rules: 
+	
+
+public (active)
+  target: default
+  icmp-block-inversion: no
+  interfaces: eth0
+  sources: 
+  services: dhcpv6-client ssh
+  ports: 80/tcp 443/tcp 587/tcp 110/tcp 465/tcp 25/tcp 143/tcp 993/tcp 995/tcp
+  protocols: 
+  masquerade: no
+  forward-ports: 
+  source-ports: 
+  icmp-blocks: 
+  rich rules: 
+	rule family="ipv4" source address="77.222.132.232/29" accept
+	rule family="ipv4" source address="89.252.57.183/32" accept
+	rule family="ipv4" source address="148.251.159.61/32" accept
+	rule family="ipv4" source address="88.99.204.245/32" accept
+
+trusted
+  target: ACCEPT
+  icmp-block-inversion: no
+  interfaces: 
+  sources: 
+  services: 
+  ports: 
+  protocols: 
+  masquerade: no
+  forward-ports: 
+  source-ports: 
+  icmp-blocks: 
+  rich rules: 
+	
+
+work
+  target: default
+  icmp-block-inversion: no
+  interfaces: 
+  sources: 
+  services: ssh dhcpv6-client
+  ports: 
+  protocols: 
+  masquerade: no
+  forward-ports: 
+  source-ports: 
+  icmp-blocks: 
+  rich rules: 
+	
+

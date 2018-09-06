@@ -1,0 +1,5 @@
+hosts = localhost
+user = root
+password = 30dTkf5bNbAtTDoZQDf9
+dbname = postfix
+query = SELECT domain FROM domain WHERE domain='%s' and backupmx = '1'

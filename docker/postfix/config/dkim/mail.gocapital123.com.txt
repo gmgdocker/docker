@@ -1,0 +1,2 @@
+mail._domainkey	IN	TXT	( "v=DKIM1; k=rsa; "
+	  "p=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC/lgFmFz+Z/y9WpyT2IoDR7L4IoptLAmjkO/D5GBEZcF94WwkxyKfhdds+7HgBlRYherPLfp+uVI6cRjChhUHR6mwnOvDgfPEuBnJoYw1bcxJELVXHO9lBASs5l3ZIRyvad2lCvNfdsw5bbDmS8GA0+xrgyTzDYWFMDdkGn5hh5QIDAQAB" )  ; ----- DKIM key mail for gocapital123.com

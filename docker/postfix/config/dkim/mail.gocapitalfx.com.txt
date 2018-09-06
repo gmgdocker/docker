@@ -1,0 +1,2 @@
+mail._domainkey	IN	TXT	( "v=DKIM1; k=rsa; "
+	  "p=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDCP73QBfZ9LtQOGaO7WYoSJInOW2c3g/bM8tMJuEsv6E3Sq9EW2Wzryy6/i91zqlp5sz/X1ozrPEbQeULdyzvN8tmyDK+xNlojm0Fmg3k59KznW0BB8PkCYoQ2IKCdXV7PoqpllHU3xRY8dZMtkcSG68BDaIWwbr0sAi8/t++A9QIDAQAB" )  ; ----- DKIM key mail for gocapitalfx.com

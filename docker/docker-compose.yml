@@ -1,0 +1,128 @@
+version: '2'
+services:
+   nginx:
+     links:
+        - php-fpm
+        - mysql
+        - node
+        - redis
+#        - composer
+     image: "gmgdocker/nginx_build2"
+     restart: always
+     volumes:
+        - "/home/webmaster/docker/nginx/conf.d:/etc/nginx/conf.d"
+        - "/home/webmaster/websites:/var/www/html"
+        - "/home/webmaster/docker/nginx/log:/var/log/nginx"
+        - "/etc/letsencrypt:/etc/letsencrypt"
+        - "/home/webmaster/docker/nginx/nginx/nginx.conf:/etc/nginx/nginx.conf"
+     ports:
+        - "80:8080"
+        - "443:4443"
+     networks:
+      frontend:
+        ipv4_address: 172.20.0.2
+
+#     environment:
+#        DOCUMENT_ROOT: /home/webmaster/websites
+   php-fpm:
+#     image: "gmgdocker/php-fpm_build7.0_2"
+     image: "gmgdocker/php-fpm_build7"
+     #image: "php:7.0-fpm"
+     restart: always
+#     environment:
+#        DOCUMENT_ROOT: /home/webmaster/websites
+     volumes:
+        - "/home/webmaster/websites:/var/www/html"        
+        - "/home/webmaster/docker/php-fpm/pool.d/www2.conf:/usr/local/etc/php-fpm.d/www2.conf"
+        - "/home/webmaster/docker/php-fpm/pool.d/www3.conf:/usr/local/etc/php-fpm.d/www3.conf"
+        - "/home/webmaster/docker/php-fpm/pool.d/www4.conf:/usr/local/etc/php-fpm.d/www4.conf"
+        - "/home/webmaster/docker/php-fpm/pool.d/www5.conf:/usr/local/etc/php-fpm.d/www5.conf"
+        - "/home/webmaster/docker/php-fpm/pool.d/www6.conf:/usr/local/etc/php-fpm.d/www6.conf"
+        - "/home/webmaster/docker/php-fpm/pool.d/www7.conf:/usr/local/etc/php-fpm.d/www7.conf"
+        - "/home/webmaster/docker/php-fpm/pool.d/www8.conf:/usr/local/etc/php-fpm.d/www8.conf"
+        - "/run/php:/run/php"
+        - "/home/webmaster/docker/php-fpm/php.ini:/etc/php.ini"
+        - "/etc/letsencrypt:/etc/letsencrypt"
+     networks:
+      frontend:
+       ipv4_address: 172.20.0.3
+
+#     ports:
+#        - "9000:9000"
+#        - "9001:9001"
+#        - "9003:9003"
+   mysql:
+     image: "gmgdocker/mysql-server:5.7"
+     restart: always
+     volumes:
+        - "/home/webmaster/docker/mysql/mysqldata:/var/lib/mysql"
+        - "/home/webmaster/docker/mysql/log:/var/log/mysql"
+        - "/home/webmaster/docker/mysql/config/remote.cnf:/etc/mysql/conf.d/remote.cnf"
+#        - "/home/webmaster/docker/mysql/config/mysqld.cnf:/etc/mysql/mysql.conf.d/mysqld.cnf"
+#     ports:
+#        - "3306:3306"
+     networks:
+      frontend:
+        ipv4_address: 172.20.0.4
+
+
+   redis:
+     image: "gmgdocker/redis:4.0"
+     restart: always
+     volumes:
+        - "/home/webmaster/docker/redis/data:/data/"
+#     ports:
+#        - "6379:6379"
+     networks:
+      frontend:
+        ipv4_address: 172.20.0.5
+
+   node:
+#    links:
+#       - php-fpm
+#       - nginx
+#       - redis
+#      working_dir: /node
+#     command: node
+#      image: "gmgdocker/node:10.7.0"
+      image: "docker.io/node"
+      restart: always
+      volumes:
+        - "/home/webmaster/websites/laravel/site:/node"
+      networks:
+       frontend:
+         ipv4_address: 172.20.0.6
+   
+   composer:
+#    links:
+#        - php-fpm
+#        - nginx
+#        - redis
+     command: install
+#     image: "docker.io/composer"
+     image: "composermy"
+#     restart: always
+     volumes:
+       - "/home/webmaster/websites/laravel/site:/app"
+     networks:
+      frontend:
+        ipv4_address: 172.20.0.7
+
+
+#     command: "npm start"     
+    
+
+networks:
+ frontend:
+  driver: bridge
+  driver_opts: 
+    com.docker.network.bridge.docker_frontend: "true"
+    com.docker.network.bridge.enable_icc: "true"
+    com.docker.network.bridge.enable_ip_masquerade: "true"
+    com.docker.network.bridge.host_binding_ipv4: "0.0.0.0"
+    com.docker.network.bridge.name: "docker20"
+    com.docker.network.driver.mtu: "1500"
+  ipam:
+    config:
+     - subnet: 172.20.0.0/16
+       gateway: 172.20.0.1
